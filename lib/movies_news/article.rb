@@ -12,13 +12,20 @@ class MoviesNews::Article
     @@all
   end
 
+  def self.destroy_all
+    self.all.clear
+  end
+
   def save
-    @@all << self unless @@all.detect { |article| article == self }
+    @@all << self unless @@all.detect { |article| article.name == self }
+    # @@all << self if @@all.find { |name| self.name  != name }
+    # @@all << self
+    # binding.pry
   end
 
   def self.create(name)
     article = self.new(name)
-    article.save
+    article.save if @@all.find { |article| name  != article }
     article
   end
 
@@ -28,6 +35,7 @@ class MoviesNews::Article
   end
 
   def self.find_by_name(name)
+    binding.pry
     self.all.detect { |x| x.name == name }
   end
 
