@@ -1,5 +1,6 @@
 class MoviesNews::Article
-  attr_reader :name, :author
+  attr_reader :author
+  attr_accessor :name
 
   @@all = []
 
@@ -12,20 +13,30 @@ class MoviesNews::Article
     @@all
   end
 
+  def save
+    # @@all << self unless @@all.detect { |article| article.name == self.name}
+
+    unless self.class.all.detect { |article| article.name == self.name}
+      @@all << self
+    end
+  end
+
   def self.destroy_all
     self.all.clear
   end
 
-  def save
-    @@all << self unless @@all.detect { |article| article.name == self }
-    # @@all << self if @@all.find { |name| self.name  != name }
-    # @@all << self
-    # binding.pry
-  end
+  # def add_article(article)
+  #   article.author = self if article.author.nil?
+  #   self.articles << article unless self.articles.include?(article)
+  # end
+
+
 
   def self.create(name)
-    article = self.new(name)
-    article.save if @@all.find { |article| name  != article }
+    # article = self.new(name)
+    article = self.find_or_create_by_name(name)
+    # binding.pry
+    # article.save
     article
   end
 
@@ -35,11 +46,17 @@ class MoviesNews::Article
   end
 
   def self.find_by_name(name)
-    binding.pry
     self.all.detect { |x| x.name == name }
+    # binding.pry
   end
 
   def self.find_or_create_by_name(name)
-    self.find_by_name(name).nil? ? self.create(name) : self.find_by_name(name)
+    unless self.all.detect { |article| article.name == name}
+      article = MoviesNews::Article.new(name)
+    end
   end
+
+  # def self.find_or_create_by_name(name)
+  #   self.find_by_name(name).nil? ? self.create(name) : self.find_by_name(name)
+  # end
 end
