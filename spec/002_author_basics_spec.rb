@@ -16,6 +16,7 @@ describe "Author Basics" do
     end
   end
 
+
   describe '#save' do
     it 'adds the author instance to the @@all class variable' do
       author = MoviesNews::Author.new("Spencer Perry")
@@ -25,6 +26,16 @@ describe "Author Basics" do
       expect(MoviesNews::Author.all).to include(author)
     end
   end
+
+  describe '.destroy_all' do
+    it 'resets the @@all class variable to an empty array' do
+      MoviesNews::Author.class_variable_set(:@@all, ["MoviesNews::Author"])
+
+      MoviesNews::Author.destroy_all
+      expect(MoviesNews::Author.all).to match_array([])
+    end
+  end
+
 
   describe '.create' do
     it 'initializes and saves the author' do

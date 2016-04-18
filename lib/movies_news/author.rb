@@ -19,6 +19,10 @@ class MoviesNews::Author
    @@all << self
   end
 
+  def self.destroy_all
+    self.all.clear
+  end
+
   def self.create(name)
     author = self.new(name)
     author.save
@@ -31,12 +35,10 @@ class MoviesNews::Author
   end
 
   def self.find_by_name(name)
-    @@all.detect { |x| x.name == name }
+    self.all.detect { |x| x.name == name }
   end
 
   def self.find_or_create_by_name(name)
-    self.find_by_name(name).nil? ? self.create(name) : self.find_by_name(name)
+    self.find_by_name(name) || self.create(name)
   end
-
-
 end

@@ -1,4 +1,4 @@
-describe 'Findable Artists' do
+describe 'Findable Authors' do
   describe ".find_by_name" do
     it 'finds an author instance in @@all by the name property of the author' do
       author = MoviesNews::Author.new("Spencer Perry")
