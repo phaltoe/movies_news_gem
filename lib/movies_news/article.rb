@@ -1,11 +1,10 @@
 class MoviesNews::Article
-  attr_reader :author
-  attr_accessor :name, :author, :content, :movie, :time_published, :headline
+  attr_accessor :title, :author, :story
 
   @@articles = []
 
-  def initialize(name, author = nil)
-    @name = name
+  def initialize(title, author = nil, story = nil)
+    @title = title
     self.author = author unless author.nil?
   end
 
@@ -14,7 +13,7 @@ class MoviesNews::Article
   end
 
   def save
-    @@articles << self unless MoviesNews::Article.all.detect {|a| a.name == self.name }
+    @@articles << self unless MoviesNews::Article.all.detect {|a| a.title == self.title }
   end
 
   def self.destroy_all
@@ -22,8 +21,8 @@ class MoviesNews::Article
   end
 
 
-  def self.create(name)
-    article = self.new(name)
+  def self.create(title)
+    article = self.new(title)
     article.save
     article
   end
@@ -33,17 +32,31 @@ class MoviesNews::Article
     author.add_article(self) unless author.articles.include?(self)
   end
 
-  def self.find_by_name(name)
-    self.all.detect { |x| x.name == name }
+  def self.find_by_title(title)
+    self.all.detect { |x| x.title == title }
   end
 
-  def self.find_or_create_by_name(name)
-    self.find_by_name(name) || self.create(name)
+  def self.find_or_create_by_title(title)
+    self.find_by_title(title) || self.create(title)
+  end
+
+  def self.create_from_array(array)
+    array.each do |article|
+      title = article[:title]
+      author = article[:author]
+      story = article[:story]
+
+      new_article = self.create(title)
+      new_article.author = MoviesNews::Author.find_or_create_by_name(author)
+      new_article.story = story
+    end
   end
 
   def self.get_articles
     self.all.each_with_index do |article, index|
-      puts "#{index} - #{article.name}"
+      puts "#{index} - #{article.title}"
     end
   end
+
+
 end

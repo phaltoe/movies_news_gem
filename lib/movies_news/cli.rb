@@ -2,7 +2,7 @@ class MoviesNews::CLI
 
   def call
     introduction
-    get_articles
+    get_article
   end
 
   def introduction
@@ -10,7 +10,7 @@ class MoviesNews::CLI
     puts ""
   end
 
-  def get_articles
+  def get_article
     puts "These are our latest articles:"
     puts ""
     MoviesNews::Article.get_articles

@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe "Article Basics" do
-  describe '#initialize with #name' do
-    it 'accepts a name for the article' do
+  describe '#initialize with #title' do
+    it 'accepts a title for the article' do
       article = MoviesNews::Article.new("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
-      expect(article.name).to eq("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
+      expect(article.title).to eq("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
     end
   end
 
   describe '#name=' do
     it "sets the article name" do
       article = MoviesNews::Article.new("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
-      article.name = "Jump Around"
+      article.title = "Jump Around"
 
-      expect(article.name).to eq("Jump Around")
+      expect(article.title).to eq("Jump Around")
     end
   end
 
