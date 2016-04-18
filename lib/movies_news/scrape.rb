@@ -13,15 +13,16 @@ class MoviesNews::Scrape
 
       content.css(".article-content").each do |articles|
         content.css(".tags-container").each do |tag|
-          name = stories.css(".listed-article-excerpt").text
+          name = stories.css("header a").text
+
           author = stories.css(".listed-article-author").text
           new_author = MoviesNews::Author.find_or_create_by_name(author)
 
           article = MoviesNews::Article.new(name, new_author)
-          article.movie = tag.css("a").first.text
+          # article.movie = tag.css("a").first.text
           article.content = articles.css("p").text
-          article.headline = stories.css("header a").text
-          article.time_published = stories.css(".article-date.article-date-time").text
+          # article.time_published = stories.css(".article-date.article-date-time").text
+          # binding.pry
         end
       end
     end
