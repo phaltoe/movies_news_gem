@@ -1,8 +1,8 @@
 class MoviesNews::Article
   attr_reader :author
-  attr_accessor :name, :author, :description, :movie, :time_published, :headline
+  attr_accessor :name, :author, :content, :movie, :time_published, :headline
 
-  @@all = []
+  @@articles = []
 
   def initialize(name, author = nil)
     @name = name
@@ -10,11 +10,11 @@ class MoviesNews::Article
   end
 
   def self.all
-    @@all
+    @@articles
   end
 
   def save
-    @@all << self unless MoviesNews::Article.all.detect {|a| a.name == self.name }
+    @@articles << self unless MoviesNews::Article.all.detect {|a| a.name == self.name }
   end
 
   def self.destroy_all

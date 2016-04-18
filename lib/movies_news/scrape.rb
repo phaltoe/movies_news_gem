@@ -20,11 +20,11 @@ class MoviesNews::Scrape
         content.css(".tags-container").each do |tag|
           name = stories.css(".listed-article-excerpt").text
           author = stories.css(".listed-article-author").text
-          new_author = Author.find_or_create_by_name(author)
+          new_author = MoviesNews::Author.find_or_create_by_name(author)
 
-          article = Article.new(name, new_author)
+          article = MoviesNews::Article.new(name, new_author)
           article.movie = tag.css("a").first.text
-          article.article = articles.css("p").text
+          article.content = articles.css("p").text
           article.headline = stories.css("header a").text
           article.time_published = stories.css(".article-date.article-date-time").text
           binding.pry
@@ -33,34 +33,3 @@ class MoviesNews::Scrape
     end
   end
 end
-
-
-
-    # @stories = []
-
-    # scraped_page.css(".listed-article-content").each do |stories|
-    #   url = stories.css("header a").attribute("href").value
-    #   content = Nokogiri::HTML(open(url))
-    #
-    #   content.css(".article-content").each do |articles|
-    #     content.css(".tags-container").each do |tag|
-          # binding.pry
-  #         @stories << {
-  #           :movie => tag.css("a").first.text,
-  #           :article => articles.css("p").text,
-  #           :headline => stories.css("header a").text,
-  #           :author => stories.css(".listed-article-author").text,
-  #           :time_published => stories.css(".article-date.article-date-time").text,
-  #           :name => stories.css(".listed-article-excerpt").text
-  #         }
-  #       end
-  #     end
-  #   end
-  #   @stories
-  #   # @stories.each do |key, value|
-  #   #   binding.pry
-  #   # end
-  # end
-
-
-# end
