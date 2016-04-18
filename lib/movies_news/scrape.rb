@@ -27,7 +27,6 @@ class MoviesNews::Scrape
           article.content = articles.css("p").text
           article.headline = stories.css("header a").text
           article.time_published = stories.css(".article-date.article-date-time").text
-          binding.pry
         end
       end
     end
