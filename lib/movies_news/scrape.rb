@@ -1,12 +1,7 @@
-require_relative "./article.rb"
-require_relative "./author.rb"
-
 class MoviesNews::Scrape
 
 
   def self.get_page
-    # page = "http://www.comingsoon.net/hub/movie-news"
-    # scraped_page = Nokogiri::HTML(open(page))
     Nokogiri::HTML(open("http://www.comingsoon.net/hub/movie-news"))
   end
 
@@ -27,6 +22,7 @@ class MoviesNews::Scrape
           article.content = articles.css("p").text
           article.headline = stories.css("header a").text
           article.time_published = stories.css(".article-date.article-date-time").text
+          binding.pry
         end
       end
     end
