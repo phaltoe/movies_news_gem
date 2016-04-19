@@ -5,6 +5,7 @@ class MoviesNews::CLI
   def call
     introduction
     get_article
+    # articles_list
     start
   end
 
@@ -17,11 +18,16 @@ class MoviesNews::CLI
   end
 
   def get_article
-    articles = MoviesNews::Article.get_articles
+    MoviesNews::Article.get_articles
+  end
+
+  def articles_list
+    articles = MoviesNews::Article.all
     puts "These are our latest articles:"
     puts ""
     articles.each_with_index do |article, index|
-      puts "#{index + 1}".colorize(:blue) + " #{article.title}.\n".colorize(:red) + "   written by:" + " #{article.author.name.gsub(/^\s/, "")}".colorize(:blue)
+      puts "#{index + 1}".colorize(:blue) + " #{article.title}".colorize(:red)
+      puts "   written by:" + " #{article.author.name.gsub(/^\s/, "")}".colorize(:blue)
     end
   end
 
@@ -29,13 +35,14 @@ class MoviesNews::CLI
     articles = MoviesNews::Article.all
     puts "::::".colorize(:red) + "#{articles[input - 1].title}".colorize(:blue) +"::::".colorize(:red)
     puts ""
-    puts "#{articles[input - 1].story}\n" + "\n" "Written by:" + "#{articles[input - 1].author.name}".colorize(:blue)
+    puts "#{articles[input - 1].story}\n" + "\n" "Written by:" + " #{articles[input - 1].author.name}".colorize(:blue)
     puts ""
   end
 
   def start
     user_input = nil
     until user_input == "n"
+      articles_list
       input = nil
       puts ""
       puts "Please enter the number for the article you want to read" + "(1-10)".colorize(:blue)
@@ -45,17 +52,19 @@ class MoviesNews::CLI
       if input > 0 && input <= 10 then
         display(input)
       else
-        puts "Please input a valid number" + "(1-10)".colorize(:blue)
+        puts "ERRRRRRRORRRRR! ".colorize(:red) + "Please input a valid number" + "(1-10)".colorize(:blue)
+        puts ""
+        start
       end
 
       puts "Would you like to read another article?" +"(TYPE ANY KEY).".colorize(:blue) +  "In case you don't, please type" + " (N) ".colorize(:blue)
       user_input = gets.strip.downcase
 
-      if user_input == "n"
+      if user_input != "n"
+        start
+      else
         puts "Thank you!"
         exit
-      else
-        start
       end
     end
   end
