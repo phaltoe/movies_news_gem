@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "movies_news.rb"
+require "movies_news"
 
 MoviesNews::CLI.new.call
