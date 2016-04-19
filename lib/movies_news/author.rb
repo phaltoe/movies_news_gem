@@ -5,7 +5,6 @@ class MoviesNews::Author
   attr_reader :name
 
   @@all = []
-
   def initialize(name)
     @name = name
     @articles = []

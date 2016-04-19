@@ -20,6 +20,5 @@ class MoviesNews::Scrape
       end
     end
     @articles_list
-    binding.pry
   end
 end

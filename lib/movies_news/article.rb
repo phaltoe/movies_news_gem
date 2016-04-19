@@ -46,17 +46,15 @@ class MoviesNews::Article
       author = article[:author]
       story = article[:story]
 
-      new_article = self.create(title)
-      new_article.author = MoviesNews::Author.find_or_create_by_name(author)
+      new_author = MoviesNews::Author.find_or_create_by_name(author)
+      new_article = self.new(title, new_author)
       new_article.story = story
+      new_article.save
     end
   end
 
   def self.get_articles
-    self.all.each_with_index do |article, index|
-      puts "#{index} - #{article.title}"
-    end
+    self.create_from_array(MoviesNews::Scrape.make_articles)
+    @@articles
   end
-
-
 end
