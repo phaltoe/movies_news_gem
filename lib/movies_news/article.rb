@@ -1,4 +1,7 @@
 class MoviesNews::Article
+  extend MoviesNews::MovieModule::ClassMethods
+  include MoviesNews::MovieModule::InstanceMethods
+  
   attr_accessor :title, :author, :story
 
   @@articles = []
@@ -10,21 +13,6 @@ class MoviesNews::Article
 
   def self.all
     @@articles
-  end
-
-  def save
-    @@articles << self unless MoviesNews::Article.all.detect {|a| a.title == self.title }
-  end
-
-  def self.destroy_all
-    self.all.clear
-  end
-
-
-  def self.create(title)
-    article = self.new(title)
-    article.save
-    article
   end
 
   def author=(author)
@@ -47,7 +35,7 @@ class MoviesNews::Article
       story = article[:story]
 
       new_author = MoviesNews::Author.find_or_create_by_name(author)
-      
+
       new_article = self.new(title, new_author)
       new_article.story = story
       new_article.save

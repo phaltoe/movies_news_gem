@@ -5,6 +5,7 @@ class MoviesNews::CLI
   def call
     introduction
     get_article
+    # articles_list
     start
   end
 

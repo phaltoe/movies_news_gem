@@ -8,8 +8,8 @@ describe "Article Basics" do
     end
   end
 
-  describe '#name=' do
-    it "sets the article name" do
+  describe '#title=' do
+    it "sets the article title" do
       article = MoviesNews::Article.new("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
       article.title = "Jump Around"
 

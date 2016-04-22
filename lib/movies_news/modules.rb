@@ -1,4 +1,4 @@
-module MovieModule
+module MoviesNews::MovieModule
 
   module ClassMethods
     def destroy_all
@@ -11,12 +11,11 @@ module MovieModule
       self_instance
     end
 
-    def self.find_by_name(name)
-      self.all.detect { |x| x.name == name }
-    end
+  end
 
-    def self.find_or_create_by_name(name)
-      self.find_by_name(name) || self.create(name)
+  module InstanceMethods
+    def save
+      self.class.all << self
     end
   end
 end
