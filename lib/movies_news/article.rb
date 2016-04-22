@@ -47,6 +47,7 @@ class MoviesNews::Article
       story = article[:story]
 
       new_author = MoviesNews::Author.find_or_create_by_name(author)
+      
       new_article = self.new(title, new_author)
       new_article.story = story
       new_article.save

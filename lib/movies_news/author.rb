@@ -1,5 +1,6 @@
 
 class MoviesNews::Author
+  extend MovieModule::ClassMethods
 
   attr_accessor :articles
   attr_reader :name
@@ -17,27 +18,27 @@ class MoviesNews::Author
   def save
    @@all << self
   end
-
-  def self.destroy_all
-    self.all.clear
-  end
-
-  def self.create(name)
-    author = self.new(name)
-    author.save
-    author
-  end
+  #
+  # def self.destroy_all
+  #   self.all.clear
+  # end
+  #
+  # def self.create(name)
+  #   author = self.new(name)
+  #   author.save
+  #   author
+  # end
 
   def add_article(article)
     article.author = self if article.author.nil?
     self.articles << article unless self.articles.include?(article)
   end
 
-  def self.find_by_name(name)
-    self.all.detect { |x| x.name == name }
-  end
-
-  def self.find_or_create_by_name(name)
-    self.find_by_name(name) || self.create(name)
-  end
+  # def self.find_by_name(name)
+  #   self.all.detect { |x| x.name == name }
+  # end
+  #
+  # def self.find_or_create_by_name(name)
+  #   self.find_by_name(name) || self.create(name)
+  # end
 end
