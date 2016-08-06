@@ -15,7 +15,7 @@ class MoviesNews::Author
     @@all
   end
 
-  def add_article(article)
+  def add_article_to_author(article)
     article.author = self if article.author.nil?
     self.articles << article unless self.articles.include?(article)
   end

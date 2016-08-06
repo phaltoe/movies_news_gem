@@ -17,7 +17,7 @@ class MoviesNews::Article
 
   def author=(author)
     @author = author
-    author.add_article(self) unless author.articles.include?(self)
+    author.add_article_to_author(self) unless author.articles.include?(self)
   end
 
   def self.find_by_title(title)

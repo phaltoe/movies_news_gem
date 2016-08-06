@@ -44,14 +44,14 @@ describe "Articles and Authors - " do
       it 'adds the article to the author\'s article collection' do
         article = MoviesNews::Article.new("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
         author = MoviesNews::Author.new("Spencer Perry")
-        author.add_article(article)
+        author.add_article_to_author(article)
 
         expect(author.articles).to include(article)
       end
       it 'assigns the author to the article' do
         article = MoviesNews::Article.new("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
         author = MoviesNews::Author.new("Spencer Perry")
-        author.add_article(article)
+        author.add_article_to_author(article)
 
         expect(article.author).to eq(author)
       end
@@ -70,8 +70,8 @@ describe "Articles and Authors - " do
         article = MoviesNews::Article.new("Nickelodeon Star Isabela Moner Eyed for Transformers 5 Role")
         author = MoviesNews::Author.new("Spencer Perry")
 
-        author.add_article(article)
-        author.add_article(article)
+        author.add_article_to_author(article)
+        author.add_article_to_author(article)
 
         expect(author.articles).to include(article)
         expect(author.articles.size).to eq(1)
