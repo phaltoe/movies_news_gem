@@ -15,20 +15,7 @@ class MoviesNews::Article
     @@articles
   end
 
-  def author=(author)
-    @author = author
-    author.add_article_to_author(self) unless author.articles.include?(self)
-  end
-
-  def self.find_by_title(title)
-    self.all.detect { |x| x.title == title }
-  end
-
-  def self.find_or_create_by_title(title)
-    self.find_by_title(title) || self.create(title)
-  end
-
-  def self.create_from_array(array)
+  def self.create_articles_from_array(array)
     array.each do |article|
       title = article[:title]
       author = article[:author]
@@ -43,7 +30,6 @@ class MoviesNews::Article
   end
 
   def self.get_articles
-    self.create_from_array(MoviesNews::Scrape.make_articles)
-    @@articles
+    self.create_articles_from_array(MoviesNews::Scrape.make_articles)
   end
 end

@@ -18,9 +18,10 @@ class MoviesNews::CLI
 
   def get_article
     MoviesNews::Article.get_articles
+    # MoviesNews::Article.create_articles_from_array(MoviesNews::Scrape.make_articles)
   end
 
-  def articles_list
+  def display_articles
     articles = MoviesNews::Article.all
     puts "These are our latest articles:"
     puts ""
@@ -30,28 +31,28 @@ class MoviesNews::CLI
     end
   end
 
-  def display(input)
+  def display_single_article(user_pick)
     articles = MoviesNews::Article.all
-    puts "::::".colorize(:red) + "#{articles[input - 1].title}".colorize(:blue) +"::::".colorize(:red)
+    puts "::::".colorize(:red) + "#{articles[user_pick - 1].title}".colorize(:blue) +"::::".colorize(:red)
     puts ""
-    puts "#{articles[input - 1].story}\n" + "\n" "Written by:" + " #{articles[input - 1].author.name}".colorize(:blue)
+    puts "#{articles[user_pick - 1].story}\n" + "\n" "Written by:" + " #{articles[user_pick - 1].author.name}".colorize(:blue)
     puts ""
   end
 
   def start
     user_input = nil
     until user_input == "n"
-      articles_list
-      input = nil
+      display_articles
+      user_pick = nil
       puts ""
       puts "Please enter the number for the article you want to read" + "(1-10)".colorize(:blue)
       puts ""
-      input = gets.strip.to_i
+      user_pick = gets.strip.to_i
 
-      if input > 0 && input <= 10 then
-        display(input)
+      if user_pick > 0 && user_pick <= 10 then
+        display_single_article(user_pick)
       else
-        puts "ERRRRRRRORRRRR! ".colorize(:red) + "Please input a valid number" + "(1-10)".colorize(:blue)
+        puts "ERRRRRRRORRRRR! ".colorize(:red) + "Please user_pick a valid number" + "(1-10)".colorize(:blue)
         puts ""
         start
       end
